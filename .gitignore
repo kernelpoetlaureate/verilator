@@ -1,0 +1,18 @@
+# Build artifacts
+obj_dir/
+
+# Simulation outputs
+*.vcd
+*.lxt
+*.out
+*.log
+
+# Compiled binaries
+*.o
+*.so
+*.a
+
+# System files
+.DS_Store
+Thumbs.db
+
