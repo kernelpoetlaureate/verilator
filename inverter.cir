@@ -1,0 +1,34 @@
+* Simple CMOS Inverter - Transistor Level
+.title CMOS Inverter
+
+* Power supply
+.param vdd=1.8
+
+* Input signal (square wave)
+Vin in 0 PULSE(0 {vdd} 0ns 0.1ns 0.1ns 5ns 10ns)
+
+* PMOS transistor (pull-up)
+M1 out in vdd vdd pmos W=2u L=180n
+
+* NMOS transistor (pull-down)  
+M2 out in 0 0 nmos W=1u L=180n
+
+* Load capacitance
+Cload out 0 10fF
+
+* Power supply
+Vdd vdd 0 DC {vdd}
+
+* Simple MOS models (generic)
+.model nmos NMOS (Level=1 VTO=0.4 KP=120u)
+.model pmos PMOS (Level=1 VTO=-0.4 KP=40u)
+
+* Simulation commands
+.tran 0.01ns 30ns
+.control
+run
+plot v(in) v(out)
+.endc
+
+.end
+

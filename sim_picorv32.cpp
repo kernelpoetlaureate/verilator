@@ -47,15 +47,36 @@ int main(int argc, char** argv) {
     // Release reset
     cpu->resetn = 1;
     
-    // Run for 100 cycles
-    for (int i = 0; i < 100; i++) {
-        // Rising edge
-        cpu->clk = 1;
-        cpu->mem_ready = 1;  // Memory always ready
-        cpu->mem_rdata = 0x00000013;  // Feed NOP instructions
-        cpu->eval();
-        time_counter++;
-        tfp->dump(time_counter);
+// Run for 100 cycles
+for (int i = 0; i < 100; i++) {
+    // Simple program
+    static uint32_t program[] = {
+        0x00500113,  // addi x2, x0, 5
+        0x00a00193,  // addi x3, x0, 10
+        0x003101b3,  // add  x3, x2, x3
+        0x00000013,  // nop
+        0x00000013,
+        0x00000013
+    };
+    
+    // Rising edge
+    cpu->clk = 1;
+    cpu->mem_ready = 1;
+    
+    // Feed instruction based on PC
+    uint32_t index = cpu->mem_addr / 4;
+    if (index < 6) {
+        cpu->mem_rdata = program[index];
+    } else {
+        cpu->mem_rdata = 0x00000013;
+    }
+    
+    cpu->eval();
+    time_counter++;
+    tfp->dump(time_counter);
+    
+    // ... rest stays the same
+
 
         // Print state
         printf("%5d | %6d | %4d | %9d | %08x\n", 
