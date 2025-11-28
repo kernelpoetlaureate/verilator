@@ -1,3 +1,0 @@
-Vpicorv32_gates___024root__DepSet_h19c8e4db__4.o: \
- Vpicorv32_gates___024root__DepSet_h19c8e4db__4.cpp \
- Vpicorv32_gates__pch.h Vpicorv32_gates___024root.h
